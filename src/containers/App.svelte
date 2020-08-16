@@ -1,10 +1,19 @@
+<script>
+  import Main from "../components/Main.svelte";
+  import SideBar from "../components/SideBar.svelte";
+  import TimeLine from "../components/TimeLine.svelte";
+  import Header from "../components/Header.svelte";
+</script>
+
 <style>
-    :global(body){
-        background-color: white;
-        color: black;
-    }
+  :global(body) {
+    background-color: white;
+    color: black;
+  }
 </style>
 
-<div class="main">
-    <h1>Hello ook!</h1>
-</div>
+<Header />
+<Main>
+  <TimeLine />
+  <SideBar />
+</Main>
