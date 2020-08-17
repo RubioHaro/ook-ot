@@ -73,7 +73,7 @@
   <div class="Comments-content">
 
     {#each comments as comment (comment.id)}
-      <div class="Comment s-users">
+      <div class="Comments-users">
         <h3>{comment.username}</h3>
         <span>{comment.text}</span>
       </div>

@@ -3,6 +3,8 @@
   import Modal from "./Modal.svelte";
   import { blur } from "svelte/transition";
   import Share from "./Share.svelte";
+  import { flowersCount } from "../store/store.js";
+  import { likeCount } from "../store/store.js";
 
   export let username;
   export let location;
@@ -12,9 +14,18 @@
   export let avatar;
 
   let isModal = false;
+  let isFlowered = false;
 
   function handleClick() {
     isModal = !isModal;
+  }
+  function handleFlower() {
+    isFlowered = !isFlowered;
+    if (isFlowered) {
+      $flowersCount++;
+    } else {
+      $flowersCount--;
+    }
   }
 </script>
 
@@ -101,13 +112,10 @@
     font-size: 14px;
   }
   .active-like {
-    color: #bc1888;
+    color: #63cdd7;
     animation: bounce linear 0.8s;
     animation-iteration-count: 1;
     transform-origin: 20% 20%;
-  }
-  .active-bookmark {
-    color: #f09433;
   }
 
   @keyframes bounce {
@@ -164,15 +172,18 @@
       </div>
     </div>
     <div class="Card-photo">
-      <figure>
-        <img src={photo} alt={username} />
-        <!-- <img
+      <figure on:dblclick={handleFlower}>
+        <!-- <img src={photo} alt={username} /> -->
+        <img
           src="https://c4.wallpaperflare.com/wallpaper/583/130/505/lea-seydoux-women-blue-eyes-blonde-wallpaper-preview.jpg"
-          alt="img.post.loading..." /> -->
+          alt="img.post.loading..." />
       </figure>
     </div>
     <div class="Card-icons">
-      <div class="Card-icons-first">
+      <div
+        class="Card-icons-first"
+        on:click={handleFlower}
+        class:active-like={isFlowered}>
         <i class="material-icons">local_florist</i>
       </div>
       <div class="Card-icons-second" on:click={handleClick}>

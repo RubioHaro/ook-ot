@@ -1,3 +1,7 @@
+<script>
+  import { flowersCount } from "../store/store.js";
+</script>
+
 <style>
   .Header {
     background-color: white;
@@ -66,6 +70,7 @@
         <ul>
           <li>
             <i class="material-icons">local_florist</i>
+            {$flowersCount === 0 ? '' : $flowersCount}
           </li>
           <li>
             <i class="material-icons">account_circle</i>

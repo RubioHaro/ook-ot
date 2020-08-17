@@ -37,8 +37,8 @@
         alt="profile-img" />
     </div>
     <div class="Profile-info">
-      <h2>Emma Blue</h2>
-      <span>Lea Seydoux</span>
+      <h2>{nickname}</h2>
+      <span>{name}</span>
     </div>
   </div>
 </div>
