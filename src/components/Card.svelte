@@ -1,5 +1,21 @@
 <script>
   import Comments from "./Comments.svelte";
+  import Modal from "./Modal.svelte";
+  import { blur } from "svelte/transition";
+  import Share from "./Share.svelte";
+
+  export let username;
+  export let location;
+  export let photo;
+  export let postComment;
+  export let comments;
+  export let avatar;
+
+  let isModal = false;
+
+  function handleClick() {
+    isModal = !isModal;
+  }
 </script>
 
 <style>
@@ -25,19 +41,23 @@
     height: 32px;
     border-radius: 50%;
   }
-  .Card-user h2 {
+  .Profile-avatar img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+  }
+  .Profile-info {
+    margin: 0 0 0 0.5em;
+  }
+  .Profile-info h2 {
+    font-size: 14px;
+    color: black;
     margin: 0;
     padding: 0;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0 0 0 1em;
-    color: black;
   }
-  .Card-user h2 span {
-    display: block;
+  .Profile-info span {
     font-size: 12px;
     font-weight: normal;
-    color: rgba(38, 38, 38, 0.7);
   }
   .Card-photo {
     padding: 0;
@@ -116,15 +136,28 @@
 </style>
 
 <div class="Card">
+  {#if isModal}
+    <div transition:blur>
+      <Modal>
+        <Share on:click={handleClick} />
+      </Modal>
+    </div>
+  {/if}
+
   <div class="Card-container">
     <div class="Card-header">
       <div class="Card-user">
-        <img
-          src="https://c4.wallpaperflare.com/wallpaper/583/130/505/lea-seydoux-women-blue-eyes-blonde-wallpaper-preview.jpg"
-          alt="img.post.loading..." />
-        <h2>Emma Blue</h2>
-        <br/>
-        <span>Marseille, France</span>
+        <div class="Profile-avatar">
+          <img src={avatar} alt={username} />
+          <!-- <img
+            src="https://c4.wallpaperflare.com/wallpaper/583/130/505/lea-seydoux-women-blue-eyes-blonde-wallpaper-preview.jpg"
+            alt="profile-img" /> -->
+        </div>
+        <div class="Profile-info">
+          <h2>{username}</h2>
+          <span>{location}</span>
+          <!-- <span>Lea Seydoux</span> -->
+        </div>
       </div>
       <div class="Card-settings">
         <i class="material-icons">more_horiz</i>
@@ -132,23 +165,24 @@
     </div>
     <div class="Card-photo">
       <figure>
-        <img
+        <img src={photo} alt={username} />
+        <!-- <img
           src="https://c4.wallpaperflare.com/wallpaper/583/130/505/lea-seydoux-women-blue-eyes-blonde-wallpaper-preview.jpg"
-          alt="img.post.loading..." />
+          alt="img.post.loading..." /> -->
       </figure>
     </div>
     <div class="Card-icons">
       <div class="Card-icons-first">
         <i class="material-icons">local_florist</i>
       </div>
-      <div class="Card-icons-second">
+      <div class="Card-icons-second" on:click={handleClick}>
         <i class="material-icons">share</i>
       </div>
     </div>
     <div class="Card-description">
-      <h3>Emma Blue</h3>
-      <span>Blue is the warmest colour</span>
+      <h3>{username}</h3>
+      <span>{postComment}</span>
     </div>
-    <Comments />
+    <Comments {comments} />
   </div>
 </div>

@@ -1,3 +1,21 @@
+<script>
+
+  export let comments = [];
+
+  function addComment(event) {
+    const MSG = event.target.text.value;
+    if (MSG.length > 3) {
+      const content = {
+        id: Date.now(),
+        text: MSG,
+        username: "roy",
+      };
+      comments = [...comments, content];
+      event.target.text.value = "";
+    }
+  }
+</script>
+
 <style>
   .Comments h3 {
     font-size: 14px;
@@ -53,15 +71,23 @@
 
 <div class="Comments">
   <div class="Comments-content">
-    <div class="Comments-users">
-      <h3>Noah</h3>
-      <span>Oh yeah. fav color</span>
-    </div>
+
+    {#each comments as comment (comment.id)}
+      <div class="Comment s-users">
+        <h3>{comment.username}</h3>
+        <span>{comment.text}</span>
+      </div>
+    {/each}
+
     <div class="Comments-add">
-        <form action="">
-            <input type="text" class="Comments-input" placeholder="Comentar" id="text"/>
-            <button>post</button>
-        </form>
+      <form on:submit|preventDefault={addComment}>
+        <input
+          type="text"
+          class="Comments-input"
+          placeholder="Comentar"
+          id="text" />
+        <button>post</button>
+      </form>
     </div>
   </div>
 </div>

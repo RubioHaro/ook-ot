@@ -3,6 +3,16 @@
   import SideBar from "../components/SideBar.svelte";
   import TimeLine from "../components/TimeLine.svelte";
   import Header from "../components/Header.svelte";
+import { onMount } from "svelte";
+
+  let data = {};
+  const API = "https://us-central1-pugstagram-co.cloudfunctions.net/data"
+
+  onMount( async()=> {
+    const response = await fetch(API);
+    data = await response.json()
+  });
+
 </script>
 
 <style>
@@ -26,6 +36,6 @@
 
 <Header />
 <Main>
-  <TimeLine />
-  <SideBar />
+  <TimeLine posts={data.posts} />
+  <SideBar {...data.user} />
 </Main>
