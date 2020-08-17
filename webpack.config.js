@@ -19,7 +19,7 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             }, {
-                test: /\.svelte$/,
+                test: /\.svelte?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'svelte-loader'
